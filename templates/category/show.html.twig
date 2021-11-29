@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
+<h1>Film de la catégorie {{category}}:</h1>
+<div class="d-inline-flex">
+{% for program in programs %}
+<div class="card" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
   <img class="card-img-top" style="height: 20rem;" src="{{program.poster}}" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">{{program.title}}</h5>
@@ -8,4 +11,9 @@
     <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">Voir la fiche</a>
   </div>
 </div>
+{% else %}
+<h1> Aucun film trouvé dans cette catégorie </h1>
+{% endfor %}
+</div>
+
 {% endblock %}

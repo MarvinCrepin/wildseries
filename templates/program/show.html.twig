@@ -5,7 +5,11 @@
   <div class="card-body">
     <h5 class="card-title">{{program.title}}</h5>
     <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
-    <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">Voir la fiche</a>
+    {% for season in seasons %}
+        <a href="{{ path("program_season_show", { programId: program.id, seasonId : season.id }) }}" class="btn btn-primary">
+        <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{season.number}}</p>
+        </a>
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

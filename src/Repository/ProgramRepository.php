@@ -35,16 +35,6 @@ class ProgramRepository extends ServiceEntityRepository
         ;
     }
     
-
-    /*
-    public function findOneBySomeField($value): ?Program
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+    
+    
 }

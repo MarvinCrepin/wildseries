@@ -48,6 +48,7 @@ class CategoryController extends AbstractController
         } else {
             $programs = $this->repository->findByExampleField($category);
         }
+
         return $this->render('category/show.html.twig', [
             'programs' => $programs,
             'category' => $categoryName

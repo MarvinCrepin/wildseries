@@ -1,15 +1,23 @@
-{% extends 'base.html.twig' %}
-{% block body %}
-<div class="d-flex">
-{% for program in programs %}
-<div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
+  {% extends 'base.html.twig' %}
+  {% block body %}
+  <div class="d-flex">
+    <a style="text-decoration: none; text-align: center; padding-top: 5rem;" href="{{ path('app_new') }}">
+    <div class="card m-5" style="height: 18rem; width: 18rem; margin-left: 2rem; margin-right: 2rem;">
+  <div class="card-body">
+  <h5 class="card-title"></h5>
+  <p class="card-text" style="height: 5rem; font-size: 3rem;">Ajouter une série</p>
+    </div>
+  </div>
+  </a>
+  {% for program in programs %}
+  <div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
   <img class="card-img-top" style="height: 20rem;" src="{{program.poster}}" alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title">{{program.title}}</h5>
-    <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
-    <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">Voir la fiche</a>
+  <h5 class="card-title">{{program.title}}</h5>
+  <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
+  <a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary">Voir la fiche</a>
   </div>
-</div>
-{% endfor %}
-</div>
-{% endblock %}
+  </div>
+  {% endfor %}
+  </div>
+  {% endblock %}

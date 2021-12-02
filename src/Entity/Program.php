@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\ProgramRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -49,6 +48,12 @@ class Program
     {
         $this->seasons = new ArrayCollection();
     }
+
+    public function __toString()
+{
+    return $this->category;
+}
+
 
     public function getId(): ?int
     {

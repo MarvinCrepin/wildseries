@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
+use Symfony\Component\Form\FormTypeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,7 +34,10 @@ class Category
     {
         $this->programs = new ArrayCollection();
     }
-
+    public function __toString()
+    {
+        return $this->name;
+    }
     public function getId(): ?int
     {
         return $this->id;

@@ -28,7 +28,7 @@ class CategoryRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('c')
             ->andWhere('c.id = :val')
             ->setParameter('val', $value)
-            ->setMaxResults(5)
+            ->setMaxResults(3)
             ->getQuery()
             ->getResult()
         ;
@@ -43,7 +43,7 @@ class CategoryRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+
     /*
     public function findOneBySomeField($value): ?Category
     {

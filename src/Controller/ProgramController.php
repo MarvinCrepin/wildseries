@@ -111,17 +111,18 @@ class ProgramController extends AbstractController
 
     public function new(Request $request): Response
     {
+        
         $seriesform = new Program();
-        $seriesform->setCategory(null);
         // ...
 
         $form = $this->createForm(SeriesType::class, $seriesform);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) { 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($seriesform);
             $entityManager->flush();
+            
     
             return $this->redirectToRoute('app_index', [
                 'id' => $seriesform->getId()

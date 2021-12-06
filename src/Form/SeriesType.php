@@ -17,14 +17,15 @@ class SeriesType extends AbstractType
     {
         $builder
             ->add('title', TextType::class)
-            ->add('summary', TextType::class)
+            ->add('summary')
             ->add('poster')
             ->add('category')
             ->add('actors', EntityType::class, [
                 'class' => Actor::class,
                 'choice_label' => 'firstname',
                 'multiple' => true,
-                'expanded' => true,])
+                'expanded' => true,
+                'by_reference' => false])
             ->add('save', SubmitType::class)
         ;
     }

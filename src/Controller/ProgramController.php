@@ -11,6 +11,10 @@ use App\Entity\Program;
 use App\Repository\ProgramRepository;
 use App\Repository\EpisodeRepository;
 use App\Repository\SeasonRepository;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\SeriesType;
+
+
 
 class ProgramController extends AbstractController
 {
@@ -98,6 +102,34 @@ class ProgramController extends AbstractController
             'program' => $program,
             'season' => $season,
             'episodes' => $episode
+        ]);
+    }
+
+     /**
+     * @Route("/program/new", name="app_new_program")
+     */
+
+    public function new(Request $request): Response
+    {
+        $seriesform = new Program();
+        $seriesform->setCategory(null);
+        // ...
+
+        $form = $this->createForm(SeriesType::class, $seriesform);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($seriesform);
+            $entityManager->flush();
+    
+            return $this->redirectToRoute('app_index', [
+                'id' => $seriesform->getId()
+            ]);
+        }
+
+        return $this->renderForm('default/new.html.twig', [
+            'form' => $form,
         ]);
     }
 }

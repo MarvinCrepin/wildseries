@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="d-inline-flex">
+ <p class="card-text" style="height: 5rem; font-size: 2rem; padding-right: 1rem;">{{actor.firstname}}</p>
+  <p class="card-text" style="height: 5rem; font-size: 2rem;">{{actor.lastname}}</p>
+
+{% for program in programs %}
+<div class="card" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
+  <img class="card-img-top" style="height: 20rem;" src="{{program.poster}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{program.title}}</h5>
+    <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
+  </div>
+</div>
+{% else %}
+<h1> Aucun film trouvé dans cette catégorie </h1>
+{% endfor %}
+</div>
+
+{% endblock %}

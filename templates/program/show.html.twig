@@ -5,10 +5,21 @@
   <div class="card-body">
     <h5 class="card-title">{{program.title}}</h5>
     <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
+         <p class="card-text" style="font-size: 1.5rem;">Saisons</p>
     {% for season in seasons %}
         <a href="{{ path("program_season_show", { program: program.id, season : season.id }) }}" class="btn btn-primary">
-        <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{season.number}}</p>
+        <p class="card-text" style="height: 3rem; font-size: 0.7rem;">{{season.number}}</p>
         </a>
+    {% endfor %}
+     <p class="card-text text-center" style="font-size: 1.5rem;margin-top: 1rem;">Acteurs</p>
+
+  {% for actor in program.actors %}
+  <div class="d-flex">
+ <p class="card-text" style="font-size: 1.5rem; padding-right: 0.5rem;">{{ actor.firstname }} </p>
+  <p class="card-text" style="font-size: 1.5rem;">{{ actor.lastname }} </p>
+</div>
+    {% else %}
+ <p class="card-text" style="height: 5rem; font-size: 0.7rem;">Aucun acteur pour cette série</p>
     {% endfor %}
   </div>
 </div>

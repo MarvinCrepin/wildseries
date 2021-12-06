@@ -1,5 +1,6 @@
   {% extends 'base.html.twig' %}
   {% block body %}
+  <div class="container">
   <h1 class="card-title d-flex" style="color: white"> A venir </h1>
   <div class="d-flex">
     <a style="text-decoration: none; text-align: center; padding-top: 5rem;" href="{{ path('app_new_program') }}">
@@ -18,6 +19,7 @@
     </div>
   </div>
   </a>
+  </div>
   {% for program in programs %}
   <div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
   <img class="card-img-top" style="height: 20rem;" src="{{program.poster}}" alt="Card image cap">

@@ -2,16 +2,12 @@
 
 namespace App\Form;
 
-use App\Entity\Category;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormTypeInterface;
-use App\Entity\Program;
 use Symfony\Component\Form\AbstractType;
-
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use App\Entity\Actor;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SeriesType extends AbstractType
 {
@@ -24,8 +20,12 @@ class SeriesType extends AbstractType
             ->add('summary', TextType::class)
             ->add('poster')
             ->add('category')
+            ->add('actors', EntityType::class, [
+                'class' => Actor::class,
+                'choice_label' => 'firstname',
+                'multiple' => true,
+                'expanded' => true,])
             ->add('save', SubmitType::class)
-            ->getForm()
         ;
     }
 }

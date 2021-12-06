@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+{{dump(episodes)}}
 <div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
   <img class="card-img-top" style="height: 20rem;" src="{{program.poster}}" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title">{{program.title}}</h5>
-    <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
         <p class="card-text" style="height: 5rem; font-size: 3rem;">Saison : {{season.number}}</p>
-        {% for episode in episodes %}
-        <a href="{{ path("program_episode_show", { program: program.id, season : season.id, episode : episode.id }) }}">
-<p class="card-text" style="height: 5rem; font-size: 1rem;">{{episode.title}} : Épisode {{episode.number}}</p>
-</a>
-        {% endfor %}
-  </div>
+<p class="card-text" style="height: 5rem; font-size: 1rem;">{{episodes.title}} : Épisode {{episodes.number}}</p>
+<p class="card-text" style="height: 5rem; font-size: 1rem;">{{episodes.synopsis}}</p>
+
+      </div>
 </div>
 {% endblock %}

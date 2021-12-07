@@ -7,7 +7,7 @@
     <p class="card-text" style="height: 5rem; font-size: 0.7rem;">{{program.summary}}</p>
         <p class="card-text" style="height: 5rem; font-size: 3rem;">Saison : {{season.number}}</p>
         {% for episode in episodes %}
-        <a href="{{ path("program_episode_show", { program: program.id, season : season.id, episode : episode.id }) }}">
+        <a href="{{ path("program_episode_show", { programId: program.id, seasonId : season.id, episodeId : episode.id }) }}">
 <p class="card-text" style="height: 5rem; font-size: 1rem;">{{episode.title}} : Épisode {{episode.number}}</p>
 </a>
         {% endfor %}

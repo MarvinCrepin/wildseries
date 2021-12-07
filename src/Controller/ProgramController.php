@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Season;
 use App\Entity\Episode;
@@ -67,16 +68,10 @@ class ProgramController extends AbstractController
     /**
      * @Route("/program/{program}/season/{season}", name="program_season_show")
      */
+
     public function showSeason(Program $program, Season $season, EpisodeRepository $episodeRepository): Response
     {
-
         $episode = $episodeRepository->findBySeason($season);
-
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : ' . $program['id'] . ' found in program\'s table.'
-            );
-        }
 
         return $this->render('program/season_show.html.twig', [
             'program' => $program,
@@ -86,17 +81,14 @@ class ProgramController extends AbstractController
     }
 
      /**
-     * @Route("/program/{program}/season/{season}/episode/{episode}", name="program_episode_show")
+     * @Route("/program/{programId}/season/{seasonId}/episode/{episodeId}", name="program_episode_show")
+     * @ParamConverter("program", class="App\Entity\Program", options={"mapping": {"programId": "id"}})
+     * @ParamConverter("season", class="App\Entity\Season", options={"mapping": {"seasonId": "id"}})
+     * @ParamConverter("episode", class="App\Entity\Episode", options={"mapping": {"episodeId": "id"}})
      */
 
     public function showEpisode(Program $program, Season $season, Episode $episode): Response
     {
-
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : ' . $program['id'] . ' found in program\'s table.'
-            );
-        }
 
         return $this->render('program/episode_show.html.twig', [
             'program' => $program,

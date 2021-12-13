@@ -92,23 +92,14 @@ class ProgramController extends AbstractController
 
     public function showEpisode(CommentRepository $commentRepository, Request $request, EntityManagerInterface $entityManager, Program $program, Season $season, Episode $episode): Response
     {
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment);
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-        $user = $this->getUser();
- 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->denyAccessUnlessGranted('ROLE_CONTRIBUTOR');
-            $comment->setEpisode($episode)->setUser($user);
-            $entityManager->persist($comment);
-            $entityManager->flush();
-            return $this->redirect($request->getRequestUri());
-        }
-
-        return $this->renderForm('program/episode_show.html.twig', [
+        $this->forward("App\Controller\CommentController::new", [
+            "episode" => $episode,
+            "request" => $request,
+            "entityManager" => $entityManager,
+        ]);
+        
+        return $this->render('program/episode_show.html.twig', [
             'comments' => $commentRepository->findByEpisode($episode, ['id' => 'ASC']),
-            'form' => $form,
             'program' => $program,
             'season' => $season,
             'episodes' => $episode

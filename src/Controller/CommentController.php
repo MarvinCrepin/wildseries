@@ -33,32 +33,22 @@ class CommentController extends AbstractController
     }
 
 
-    /**
-     * @Route("/program/{program}/season/{season}/episode/{episode}", name="comment_new")
-     * 
-     * @IsGranted("ROLE_CONTRIBUTOR")
-     */
-
-    public function new(Program $program, Season $season, Episode $episode, Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Episode $episode, Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->getUser();
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setEpisode($episode)->setUser($user)->setComment($request->request->get('comment'));
+            $comment->setEpisode($episode)->setUser($user);
             $entityManager->persist($comment);
             $entityManager->flush();
-            return $this->redirectToRoute('comment_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('comment/new.html.twig', [
-            'role' => $this->get('security.token_storage')->getToken()->getUser()->getRoles(),
             'form' => $form,
             'episode' => $episode,
-            'season' => $season,
-            'program' => $program
         ]);
     }
 

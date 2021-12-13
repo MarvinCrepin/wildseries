@@ -29,8 +29,7 @@
           {% endif %}
         {% endfor %}
         {% if (app.user) %}
-        {{ include('comment/new.html.twig') }}
-      {% endif %}
+      {{ render(controller('App\\Controller\\CommentController::new', { episode : episodes.id })) }}      {% endif %}
       </div>
     </div>
   {% endblock %}

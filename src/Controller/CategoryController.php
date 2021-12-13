@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Program;
 use App\Form\CategoryType;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Category;
@@ -39,7 +38,7 @@ class CategoryController extends AbstractController
      * @Route("/category/{categoryName}", requirements={"id"="\d+"}, name="category_show")
      */
     public function show(string $categoryName, CategoryRepository $categoryRepository, ProgramRepository $programRepository): Response
-    {   
+    {
 
         $category = $categoryRepository->findByName($categoryName);
 
@@ -72,7 +71,7 @@ class CategoryController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($categoryForm);
             $entityManager->flush();
-    
+
             return $this->redirectToRoute('app_index', [
                 'id' => $categoryForm->getId()
             ]);

@@ -7,6 +7,19 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="/">Home</a>
+        {% if app.user %}
+    {{ app.user.email }}
+    <a href="{{ path('app_logout') }}"> Se déconnecter</a>
+  <a href="{{ path('app_profile') }}"> Voir son profil</a>
+
+{% else %}
+  <a href="{{ path('app_register') }}"> S'enregistrer</a>
+    <a href="{{ path('app_login') }}"> Se connecter</a>
+{% endif %}
+
+<ul style="display:flex; list-style-type: none; justify-content:space-around;">
+  {{ render(controller('App\\Controller\\DefaultController::navbarTop')) }}
+</ul>
       </li>
     </ul>
   </div>

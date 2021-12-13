@@ -1,14 +1,37 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-{{dump(episodes)}}
-<div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
-  <img class="card-img-top" style="height: 20rem;" src="{{program.poster}}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{program.title}}</h5>
-        <p class="card-text" style="height: 5rem; font-size: 3rem;">Saison : {{season.number}}</p>
-<p class="card-text" style="height: 5rem; font-size: 1rem;">{{episodes.title}} : Épisode {{episodes.number}}</p>
-<p class="card-text" style="height: 5rem; font-size: 1rem;">{{episodes.synopsis}}</p>
-
+  <div class="card m-5" style="width: 18rem; margin-left: 2rem; margin-right: 2rem">
+    <img class="card-img-top" style="height: 20rem;" src="{{ program.poster }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ program.title }}
+        </h5>
+        <p class="card-text" style="height: 5rem; font-size: 3rem;">
+          Saison : 
+          {{ season.number }}
+        </p>
+        <p class="card-text" style="height: 5rem; font-size: 1rem;">
+          {{ episodes.title }}
+          : Épisode 
+          {{ episodes.number }}
+        </p>
+        <p class="card-text" style="height: 5rem; font-size: 1rem;">
+          {{ episodes.synopsis }}
+        </p>
+        {% for comment in comments %}
+        {{comment.user}}
+        {{comment.comment}}
+        <br>
+        {{comment.rate}} / 5
+        <br>
+          {% if app.user == comment.user or is_granted("ROLE_ADMIN") %}
+          {{ include('comment/_delete_form.html.twig') }}
+          {% endif %}
+        {% endfor %}
+        {% if (app.user) %}
+        {{ include('comment/new.html.twig') }}
+      {% endif %}
       </div>
-</div>
-{% endblock %}
+    </div>
+  {% endblock %}
+  

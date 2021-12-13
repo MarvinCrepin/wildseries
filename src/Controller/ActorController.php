@@ -15,7 +15,7 @@ class ActorController extends AbstractController
      * @Route("/actor/{id}", name="actor_show")
      */
 
-    public function show(Actor $actor, ProgramRepository $programRepository): Response
+    public function show(Actor $actor): Response
     {
         $program = $actor->getPrograms();
         

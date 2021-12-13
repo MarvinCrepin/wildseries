@@ -42,6 +42,8 @@ class EpisodeController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/{id}', name: 'episode_show', methods: ['GET'])]
     public function show(Episode $episode): Response
     {
@@ -51,6 +53,7 @@ class EpisodeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'episode_edit', methods: ['GET', 'POST'])]
+
     public function edit(Request $request, Episode $episode, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
@@ -71,7 +74,7 @@ class EpisodeController extends AbstractController
     #[Route('/{id}', name: 'episode_delete', methods: ['POST'])]
     public function delete(Request $request, Episode $episode, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$episode->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $episode->getId(), $request->request->get('_token'))) {
             $entityManager->remove($episode);
             $entityManager->flush();
         }

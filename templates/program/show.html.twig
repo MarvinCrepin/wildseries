@@ -23,4 +23,7 @@
     {% endfor %}
   </div>
 </div>
+{% if is_granted("ROLE_ADMIN") %}
+{{ include('program/_delete_form.html.twig') }}
+  {% endif %}
 {% endblock %}

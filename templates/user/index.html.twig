@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+{% if app.user %}
+<div style="display: flex; flex-direction: column; margin-top: 3rem">
+<p>Biographie : {{ app.user.bio ?? "Vous n'avez pas encore de biographie" }}</p>
+<p>E-mail : {{ app.user.email }}</p>
+</div>
+{% endif %}
+{% endblock %}

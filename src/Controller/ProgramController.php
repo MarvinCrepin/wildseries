@@ -97,11 +97,9 @@ class ProgramController extends AbstractController
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         $user = $this->getUser();
-        if ($user) {
-            $role = $user->getRoles();
-        }
-
+ 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted('ROLE_CONTRIBUTOR');
             $comment->setEpisode($episode)->setUser($user);
             $entityManager->persist($comment);
             $entityManager->flush();
@@ -131,7 +129,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $user = $this->getUser();
             $seriesform->setOwner($user);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($seriesform);

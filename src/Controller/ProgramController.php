@@ -17,6 +17,7 @@ use App\Repository\EpisodeRepository;
 use App\Repository\SeasonRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramType;
+use App\Form\SearchProgramFormType;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -29,18 +30,26 @@ class ProgramController extends AbstractController
      * @Route("/program/", name="program_index")
      */
 
-    public function index(): Response
+
+    // ProgramController
+
+    public function index(Request $request, ProgramRepository $programRepository): Response
     {
-        $programs = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findAll();
+        $form = $this->createForm(SearchProgramFormType::class);
+        $form->handleRequest($request);
 
-        return $this->render(
-            'program/index.html.twig',
-            ['programs' => $programs]
-        );
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->getData()['search'];
+            $programs = $programRepository->findLikeName($search);
+        } else {
+            $programs = $programRepository->findAll();
+        }
+
+        return $this->render('program/index.html.twig', [
+            'programs' => $programs,
+            'form' => $form->createView(),
+        ]);
     }
-
     /**
      * @Route("/program/list/{page}", requirements={"page"="\d+"}, name="program_list")
      */
@@ -97,7 +106,7 @@ class ProgramController extends AbstractController
             "request" => $request,
             "entityManager" => $entityManager,
         ]);
-        
+
         return $this->render('program/episode_show.html.twig', [
             'comments' => $commentRepository->findByEpisode($episode, ['id' => 'ASC']),
             'program' => $program,
